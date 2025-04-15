@@ -1,4 +1,4 @@
 ## Deep Learning(DA6401) Assignment 2
 
-#### DA24M010
-#### Mohit Singh
+#### Roll no: DA24M010
+#### Name: Mohit Singh
