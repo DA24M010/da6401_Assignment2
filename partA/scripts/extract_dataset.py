@@ -23,5 +23,5 @@ for label in os.listdir(VAL_DATA_DIR):
 
 train_df = pd.DataFrame(list(train_paths.items()), columns= ["path", "label"])
 val_df = pd.DataFrame(list(val_paths.items()), columns= ["path", "label"])
-train_df.to_csv('train.csv', index = False)
-val_df.to_csv('val.csv', index = False)
+train_df.to_csv('./partA/train.csv', index = False)
+val_df.to_csv('./partA/val.csv', index = False)
