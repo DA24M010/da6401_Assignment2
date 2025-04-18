@@ -1,5 +1,5 @@
 ## Deep Learning(DA6401) Assignment 2
-Repo for assignment1 submission in DA6401
+Repo for assignment2 submission in DA6401
 
 #### Roll no: DA24M010
 #### Name: Mohit Singh
@@ -51,19 +51,21 @@ This project implements a **CNN network** from scratch using **PyTorch** and fin
 - **`train_vgg.py`**: Contains the training loop logic for fine-tuning the VGG model.
 - **`vgg_sweeps.py`**: Runs WandB sweeps for VGG model fine-tuning and logs validation metrics.
 
+*Part B uses the same scripts for loading the data as Part A.*
+
 # Hyperparameter Tuning
 
 WandB sweeps are used to explore various configurations for training the CNN in partA. The following hyperparameters are considered:
 
-- **Number of filters**: [32, 64, 128]
-- **Filter Multiplier**: [0.5, 1, 2]
-- **Kernel Size**: [3, 5]
-- **Activation**: [relu, leaky_relu, gelu, silu, mish]
-- **Rate of Dropout**: [0.2, 0.5, 0.7]
-- **Batch normalization**: [True, False]
-- **Dense units**: [512, 1024]
-- **Data Augmentation**: [True, False]
-- **Learning Rate**: [0.01, 0.001, 0.0001]
+- **Number of filters** (Number of filters in the convolution layers): [32, 64, 128]
+- **Filter Multiplier** (Multiplier for organising the filters, 1 means all conv layers have same filter, 0.5 means halving the filter value in subsequent layers, 2 means doubling the filter value): [0.5, 1, 2]
+- **Kernel Size** (Size of k*k kernel used in conv layers): [3, 5]
+- **Activation** (Activation function used in conv and dense layers): [relu, leaky_relu, gelu, silu, mish]
+- **Rate of Dropout** (Dropout percentage applied in conv and dense layers): [0.2, 0.5, 0.7]
+- **Batch normalization** (If True applies batchnorm in conv layers else no batch normalization): [True, False]
+- **Dense units** (Number of nodes in the dense layer): [512, 1024]
+- **Data Augmentation** (Applies data augmentation(random rotation, flip, crop, jitter) in training data if True): [True, False]
+- **Learning Rate** (learning rate): [0.01, 0.001, 0.0001]
 
 WandB will automatically generate plots for the sweeps. Each run is given a meaningful name (e.g., 
 `nf_128_ks_5_fm_2_act_silu_do_0.2_bn_True_da_True_lr_0.0001_du_1024`)

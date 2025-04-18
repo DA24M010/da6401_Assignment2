@@ -11,8 +11,8 @@ class CNNModel(nn.Module):
         self.layers = nn.ModuleList()
         self.num_classes = 10
         self.activation = activation
-        self.multiplier = filter_multiplier # takes values like 0.5, 2, 1, 3
-        in_channels = input_shape[0]  # Number of input channels (C)
+        self.multiplier = filter_multiplier # takes values like 0.5, 2, 1
+        in_channels = input_shape[0]  
         
         for i in range(5):
             self.layers.append(nn.Conv2d(in_channels, num_filters, kernel_size = kernel_size, padding = kernel_size//2))
@@ -65,5 +65,4 @@ class CNNModel(nn.Module):
         return x
 
     def summary(self, batch_size=1):
-        """Prints the model summary"""
         return summary(self, input_size=(batch_size, *self.input_shape), col_names=["input_size", "output_size", "num_params", "mult_adds"])
