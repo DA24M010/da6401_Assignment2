@@ -1,9 +1,11 @@
+import argparse
 from data import get_data_loaders
 from model import CNNModel
 from train import train_model
 import torch
 import wandb
 
+# Sweep config
 sweep_config = {
     "method": "bayes",
     "metric": {
@@ -41,12 +43,16 @@ def wandb_train(config=None):
         config = wandb.config
         wandb.run.name = make_run_name(config)
         print(wandb.run.name)
-        # Setup data
-        train_loader, val_loader, test_loader = get_data_loaders('./partA/train.csv', './partA/val.csv', data_augmentation = config.data_augmentation, seed = 7)
+        train_loader, val_loader, test_loader, _ = get_data_loaders(
+            './partA/train.csv',
+            './partA/val.csv',
+            data_augmentation=config.data_augmentation,
+            seed=7
+        )
         print("Data loading done")
-        # Create model
+
         model = CNNModel(
-            input_shape = (3, 224, 224),
+            input_shape=(3, 224, 224),
             num_filters=config.num_filters,
             kernel_size=config.kernel_size,
             filter_multiplier=config.filter_multiplier,
@@ -58,4 +64,13 @@ def wandb_train(config=None):
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         model.to(device)
         print(f"Training model on {device}")
-        train_model(model, train_loader, val_loader, epochs=10, lr=config.lr, device=device, wandb_logging = True)
+        train_model(model, train_loader, val_loader, epochs=10, lr=config.lr, device=device, wandb_logging=True)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--project", default="DA6401_Assignments", help="WandB project name")
+    parser.add_argument("--entity", default="da24m010-indian-institute-of-technology-madras", help="WandB entity name")
+    args = parser.parse_args()
+
+    sweep_id = wandb.sweep(sweep_config, project=args.project, entity=args.entity)
+    wandb.agent(sweep_id, function=wandb_train)

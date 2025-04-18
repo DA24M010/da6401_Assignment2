@@ -3,8 +3,7 @@ import pandas as pd
 from torch.utils.data import Dataset
 from torchvision import transforms
 from PIL import Image
-
-from torch.utils.data import DataLoader, random_split
+from torch.utils.data import DataLoader
 from sklearn.model_selection import StratifiedShuffleSplit
 import torch
 import pandas as pd

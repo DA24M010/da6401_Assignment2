@@ -1,6 +1,5 @@
 import os
 import glob
-from collections import defaultdict
 import pandas as pd
 
 TRAIN_DATA_DIR = 'nature_12K/inaturalist_12K/train'
